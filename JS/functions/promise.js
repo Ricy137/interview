@@ -1,14 +1,20 @@
+const STATUS = {
+    PENDING: "pending",
+    FULFILLED: "fulfilled",
+    REJECTED: "rejected",
+};
+
 class CustomPromise {
     constructor(executor) {
         // Initial state
-        this.state = "pending"; // Can be 'pending', 'fulfilled', or 'rejected'
+        this.state = STATUS.PENDING; // Can be 'pending', 'fulfilled', or 'rejected'
         this.value = undefined;
         this.callbacks = []; // To handle then/catch chaining
 
         // Resolve function
         const resolve = (value) => {
-            if (this.state !== "pending") return;
-            this.state = "fulfilled";
+            if (this.state !== STATUS.PENDING) return;
+            this.state = STATUS.FULFILLED;
             this.value = value;
 
             // Call all stored success handlers
@@ -17,8 +23,8 @@ class CustomPromise {
 
         // Reject function
         const reject = (reason) => {
-            if (this.state !== "pending") return;
-            this.state = "rejected";
+            if (this.state !== STATUS.PENDING) return;
+            this.state = status.rejected;
             this.value = reason;
 
             // Call all stored failure handlers
@@ -57,9 +63,9 @@ class CustomPromise {
             };
 
             // If the promise is already settled, handle it immediately
-            if (this.state === "fulfilled") {
+            if (this.state === status.fulfilled) {
                 handleFulfilled(this.value);
-            } else if (this.state === "rejected") {
+            } else if (this.state === status.rejected) {
                 handleRejected(this.value);
             } else {
                 // If the promise is still pending, store the handlers
