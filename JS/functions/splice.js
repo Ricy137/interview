@@ -4,7 +4,7 @@ Array.prototype.mySplice = function (start, deletedCount, ...items) {
             ? Math.max(this.length + start, 0)
             : Math.min(this.length, start);
 
-    if (!deletedCount) {
+    if (deletedCount === undefined) {
         deletedCount = this.length - start;
     } else {
         deletedCount = Math.min(Math.max(deletedCount, 0), this.length);
