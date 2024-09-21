@@ -2,10 +2,11 @@
 //Scratch
 Array.prototype.myMap = function (fn, thisValue) {
     let res = [];
-    thisValue = thisValue ?? [];
-    let arr = this;
-    for (let i = 0; i < arr.length; i++) {
-        res.push(fn.call(thisValue, arr[i], i, arr));
+    // null or undefined are also valid as the context `this`
+    // thisValue = thisValue ?? [];
+    //let arr = this;
+    for (let i = 0; i < this.length; i++) {
+        res.push(fn.call(thisValue, this[i], i, this));
     }
     return res;
 };
