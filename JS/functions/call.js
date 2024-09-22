@@ -1,12 +1,12 @@
-Function.prototype.myCall = function (context = window) {
+Function.prototype.myCall = function (context, ...args) {
     if (typeof this != "function") {
         throw new Error("Not a function");
     }
-    const obj = context ?? window;
-    obj.fn = this;
-    const arg = [...arguments].slice(1);
-    res = obj.fn(...arg);
-    delete obj.fn;
+    let obj = context ?? globalThis;
+    let fn = Symbol("fn");
+    obj[fn] = this;
+    res = obj[fn](...args);
+    delete obj[fn];
     return res;
 };
 
@@ -28,6 +28,6 @@ Function.prototype.bind = function (context, ...outerArgs) {
             that.call(context, ...outerArgs, ...innerArgs);
         }
     }
-    res.prototype=this.prototype;
-    return res
+    res.prototype = this.prototype;
+    return res;
 };
