@@ -5,7 +5,7 @@ Function.prototype.myCall = function (context, ...args) {
     let obj = context ?? globalThis;
     let fn = Symbol("fn");
     obj[fn] = this;
-    res = obj[fn](...args);
+    let res = obj[fn](...args);
     delete obj[fn];
     return res;
 };
