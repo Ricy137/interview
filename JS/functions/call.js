@@ -10,11 +10,14 @@ Function.prototype.myCall = function (context, ...args) {
     return res;
 };
 
-Function.prototype.myApply = function (context) {
-    let obj = context ?? window;
-    obj.fn = this;
-    const arg = arguments[1] ?? [];
-    let res = obj.fn(...arg);
+Function.prototype.myApply = function (context, args) {
+    if (typeof this != "function") {
+        throw new Error("Not a function");
+    }
+    let obj = context ?? globalThis;
+    let fn = Symbol("fn");
+    obj[fn] = this;
+    let res = Arrays.isArray(args) ? obj[fn](...args) : obj[fn]();
     delete obj.fn;
     return res;
 };
