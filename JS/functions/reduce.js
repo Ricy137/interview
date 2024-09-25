@@ -15,3 +15,12 @@ function sum(pre, cur, index) {
 let arr = [1, 2, 3, 4];
 let b = reduce(arr, sum);
 console.log("b: ", b);
+
+Arrays.prototype.reduce = function (cb, initialValue) {
+    let num = initialValue == undefined ? this[0] : initialValue;
+    let i = initialValue == undefined ? 1 : 0;
+    for (i; i < this.length; i++) {
+        num = cb(num, this[i], i);
+    }
+    return num;
+};
