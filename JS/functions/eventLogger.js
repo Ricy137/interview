@@ -43,19 +43,21 @@ class EventLogger {
     }
 
     sendRequest(body) {
-        const {logRequest, sendLogRequest} = this.getRequest(body);
-        this.logRequests.push(sendLogRequest);
+        const logRequest = this.getRequest(body);
+        this.logRequests.push(logRequest);
         this.batchRequest();
-        return logRequest;
+        return logRequest.logRequest;
     }
 
+    // modify throttle
     async batchRequest() {
         if (this.isThrottled) {
             return;
         }
         this.isThrottled = true;
         for (const request of this.logRequests) {
-            await request();
+            if (request.aborted) continue;
+            await request.sendLogRequest();
         }
         this.logRequests = [];
         setTimeout(() => {
