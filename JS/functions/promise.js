@@ -7,7 +7,7 @@ const STATUS = {
 class MyPromise {
     constructor(executor) {
         this.state = STATUS.PENDING;
-        this.value = null;
+        this.value = undefined;
         this.handlers = [];
         this.catchers = [];
 
