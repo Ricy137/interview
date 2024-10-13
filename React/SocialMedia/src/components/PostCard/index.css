@@ -1,0 +1,9 @@
+.post_card_wrapper {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+    width: 300px;
+    background-color: blanchedalmond;
+    border-radius: 16px;
+}
