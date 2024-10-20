@@ -38,10 +38,7 @@ class Finder {
     shiftDownClicking = () => {
         Array.from(document.querySelectorAll(".square")).forEach((square) => {
             square.addEventListener("click", () => {
-                const clickedColor =
-                    window.getComputedStyle(square).backgroundColor;
-                const clickedEle = this.find(clickedColor);
-                this.shiftDown(clickedEle);
+                this.shiftDown(square);
             });
         });
     };
