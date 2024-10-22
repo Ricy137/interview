@@ -8,9 +8,6 @@ Function.prototype.myCall = function (context, ...args) {
 };
 
 Function.prototype.myApply = function (context, args) {
-    if (typeof this != "function") {
-        throw new Error("Not a function");
-    }
     let obj = context ?? globalThis;
     let fn = Symbol("fn");
     obj[fn] = this;
@@ -19,15 +16,14 @@ Function.prototype.myApply = function (context, args) {
     return res;
 };
 
-Function.prototype.bind = function (context, ...outerArgs) {
-    let that = this;
-    function res(...innerArgs) {
-        if (this instanceof res) {
-            that.call(this, ...outerArgs, ...innerArgs);
+Function.prototype.myBind = function (context, ...args) {
+    const wrapper = (...innerArgs) => {
+        if (this instanceof wrapper) {
+            return this.apply(this, [...args, ...innerArgs]);
         } else {
-            that.call(context, ...outerArgs, ...innerArgs);
+            return this.apply(context, [...args, ...innerArgs]);
         }
-    }
-    res.prototype = this.prototype;
-    return res;
+    };
+    wrapper.prototype = Object.create(this.prototype);
+    return wrapper;
 };
