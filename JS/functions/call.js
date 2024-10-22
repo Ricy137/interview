@@ -1,7 +1,4 @@
 Function.prototype.myCall = function (context, ...args) {
-    if (typeof this != "function") {
-        throw new Error("Not a function");
-    }
     let obj = context ?? globalThis;
     let fn = Symbol("fn");
     obj[fn] = this;
