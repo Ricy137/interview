@@ -7,7 +7,7 @@ Array.prototype.mySplice = function (start, deletedCount, ...items) {
     if (deletedCount === undefined) {
         deletedCount = this.length - start;
     } else {
-        deletedCount = Math.min(Math.max(deletedCount, 0), this.length);
+        deletedCount = Math.min(Math.max(deletedCount, 0), this.length-start);
     }
     const deletedEles = this.slice(start, start + deletedCount);
     const before = this.slice(0, start);
